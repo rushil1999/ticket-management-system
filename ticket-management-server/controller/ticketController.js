@@ -47,3 +47,7 @@ export const getTickets = async (req, res) => {
         console.log(err);
     }
 }
+
+export const getTicketDetails = (req, res) => {
+
+}
