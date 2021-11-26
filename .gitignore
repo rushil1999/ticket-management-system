@@ -1,0 +1,4 @@
+ticket-management/node_modules
+ticket-management-server/node_modules
+ticket-management-server/.env
+ticket-management/.env

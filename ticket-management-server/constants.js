@@ -1,0 +1,1 @@
+export const TICKET_DEFAULT_COUNT = 25;
