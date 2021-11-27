@@ -4,9 +4,9 @@ import { parseTicketsListData } from '../services/ticketBackendService';
 export const getTickets = async (req, res) => {
     const page = req.query.page;
     let cursor = req.query.cursor;
-    console.log(req.query)
+    console.log(req.query)  
     let url;
-    if(cursor === 'default'){
+    if(cursor === 'initial'){
         url = `https://zccrushil.zendesk.com/api/v2/tickets.json?page[size]=${TICKET_DEFAULT_COUNT}`; 
     }
     else{
