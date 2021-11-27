@@ -13,8 +13,11 @@ const corsConfig = {
 };
 app.use(cors(corsConfig));
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server listening on port ${process.env.PORT}`);
-  });
+// app.listen(process.env.PORT, () => {
+//     console.log(`Server listening on port ${process.env.PORT}`);
+//   });
+
   
 app.use('/ticket', ticketRouter);
+
+export default app;
