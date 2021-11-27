@@ -9,6 +9,6 @@ export const parseTicketsListData = (ticketList) => {
         }
         return reducedTicket;
     })
-    console.log(parsedTicketsList);
+    // console.log(parsedTicketsList);
     return parsedTicketsList ;
 }

@@ -15,7 +15,7 @@ const TicketList = () =>{
         setIsLoading(true);
         let cursor;
         switch(type){
-            case 'next':{
+            case 'after':{
                 cursor = ticketMetaData.meta.after_cursor;
                 setCounter(counter+1);
                 break;
@@ -26,7 +26,7 @@ const TicketList = () =>{
                 break;
             }
             case 'initial':{
-                cursor = 'default';
+                cursor = 'initial';
                 setCounter(0);
                 break;
             }
@@ -57,7 +57,7 @@ const TicketList = () =>{
                     )
                 })}
             </ul>
-            <button onClick={()=>{getTicketList('next')}} disabled={!ticketMetaData.meta.has_more}>Next</button>
+            <button onClick={()=>{getTicketList('after')}} disabled={!ticketMetaData.meta.has_more}>Next</button>
             <br/>
             <button onClick={()=>{getTicketList('previous')}} disabled={!(counter>0)}>Last</button>
             </>
