@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {getTicketListFromExternalApi } from '../services/ticketService';
+import {Link} from 'react-router-dom';
 
 const TicketList = () =>{
     const [ticketList, setTicketList] = useState([]);
@@ -45,14 +46,15 @@ const TicketList = () =>{
     }
 
     return(
-        <>
+        <React.Fragment>
         {!isLoading && (
             <>
             <ul>
                 {ticketList.map((row)=>{
                     return(
                         <li key={row.id}>
-                            {row.subject}
+                            <Link to={`/ticket/${row.id}`}>{row.subject}</Link>
+                            
                         </li>
                     )
                 })}
@@ -63,7 +65,7 @@ const TicketList = () =>{
             </>
         )}
         
-        </>
+        </React.Fragment>
         
     );
 }

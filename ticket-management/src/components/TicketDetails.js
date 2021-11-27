@@ -1,15 +1,19 @@
 import React, {useState, useEffect} from 'react'
+import { useParams} from 'react-router';
+import {Link} from 'react-router-dom';
+import {getTicketDetailsFromExternalApi} from '../services/ticketService';
 
-const TicketDetails = props =>{
-    const [ticket, setTicket] = useState();
+const TicketDetails = () =>{
+    const [ticket, setTicket] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const {id} = useParams();
+    console.log(id);
 
     useEffect(()=>{
-        getTicketDetails();
+        getTicketDetails(id);
     },[])
 
-    const getTicketDetails = () =>{
-        const{ id } = props; 
+    const getTicketDetails = async () =>{
         setIsLoading(true);
         const {data, status} = await getTicketDetailsFromExternalApi(id);
         if(status === 200){
@@ -23,10 +27,14 @@ const TicketDetails = props =>{
         setIsLoading(false);
     }
 
+    const redirectToTicketLists = () => {
+
+    }
     const {subject, description, tags, type} = ticket;
     return(
         <>
         {!isLoading && (
+            <>
             <div>
                 <p>
                     Subject: {subject}
@@ -35,7 +43,12 @@ const TicketDetails = props =>{
                     Description: {description}
                 </p>
                 
-            </div> 
+            </div>
+            <button>
+                <Link to={`/tickets`}>Back to List</Link>
+            </button> 
+            </>
+
         )}
         </>
     );

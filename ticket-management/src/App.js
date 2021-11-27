@@ -1,9 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
 import TicketList from './components/TicketList';
+import {
+  BrowserRouter as Router,  
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+import TicketDetails from './components/TicketDetails';
 
 function App() {
   return (
+
+    <Router>
+        <Routes>
+          <Route path="/tickets" element={<TicketList />}>
+          </Route>
+          <Route path="/ticket/:id" element={<TicketDetails />}>
+          </Route>
+        </Routes>
+    </Router>
+  );
+}
+
+export default App;
+
+
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />
@@ -20,8 +42,3 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <TicketList/>
-  );
-}
-
-export default App;
