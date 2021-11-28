@@ -15,6 +15,9 @@ import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 
 const TicketList = () =>{
@@ -82,7 +85,7 @@ const TicketList = () =>{
         <div style={{textAlign:'center'}}>
             <h1>Tickets</h1>
         </div>
-        {!isLoading && (
+        {!isLoading ? (
             <>
             <Card variant="outlined">
             <TableContainer component={Paper}>
@@ -137,21 +140,26 @@ const TicketList = () =>{
             </Card>
             <footer >
             <Stack style={{padding: '20px'}}direction="row" spacing={145}>
-                <Button 
-                    variant="contained"
-                    onClick={()=>{getTicketList('after')}} disabled={!ticketMetaData.meta.has_more}
-                >
-                    Next
-                </Button>
                 <Button
                     variant="contained"
                     onClick={()=>{getTicketList('previous')}} disabled={!(counter>0)}
                 >
                     Last
                 </Button>
+                <Button 
+                    variant="contained"
+                    onClick={()=>{getTicketList('after')}} disabled={!ticketMetaData.meta.has_more}
+                >
+                    Next
+                </Button>
+                
             </Stack>
             </footer>
           </>
+        ): (
+            <Box style={{ display: 'flex' , justifyContent:'center', position: 'relative'}}>
+                <CircularProgress />
+            </Box>
         )}
         
         </React.Fragment>

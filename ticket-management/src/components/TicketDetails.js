@@ -6,6 +6,8 @@ import {getTicketDetailsFromExternalApi} from '../services/ticketService';
 import Tags from './Tags';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 const TicketDetails = () =>{
@@ -38,11 +40,12 @@ const TicketDetails = () =>{
     const {subject, description, tags, type} = ticket;
     return(
         <>
-        {!isLoading && (
-            <>
-            <div style={{textAlign:'center'}}>
+        <div style={{textAlign:'center'}}>
                 <h1>Ticket Details</h1>
-            </div>
+        </div>
+        {!isLoading ? (
+            <>
+            
             <Divider/>
             <div style={{padding:'15px'}}>
                 {type && (<><Typography variant="h5" gutterBottom component="div">
@@ -83,6 +86,10 @@ const TicketDetails = () =>{
             
             </>
 
+        ): (
+            <Box style={{ display: 'flex' , justifyContent:'center', position: 'relative'}}>
+                <CircularProgress />
+            </Box>
         )}
         </>
     );
