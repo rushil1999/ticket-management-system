@@ -1,3 +1,5 @@
+import { BACKEND_API_TICKETS_URL, BACKEND_API_TICKET_URL } from "./constants";
+
 export const getTicketListFromExternalApi = async (page) =>{
 
     const options = {
@@ -7,7 +9,7 @@ export const getTicketListFromExternalApi = async (page) =>{
         },
     }
 
-    const response = await fetch(`http://localhost:5000/ticket/tickets?page=${page}`, options);
+    const response = await fetch(`${BACKEND_API_TICKETS_URL}?page=${page}`, options);
     const status = response.status;
     const data = await response.json();
     return{ data, status};
@@ -22,7 +24,7 @@ export const getTicketDetailsFromExternalApi = async id =>{
         },
     }
 
-    const response = await fetch(`http://localhost:5000/ticket/${id}`, options);
+    const response = await fetch(`${BACKEND_API_TICKET_URL}/${id}`, options);
     const status = response.status;
     const data = await response.json();
     return{ data, status};
@@ -38,7 +40,7 @@ export const getTicketCountFromExternalApi = async () =>{
         },
     }
 
-    const response = await fetch(`http://localhost:5000/ticket/count`, options);
+    const response = await fetch(`${BACKEND_API_TICKET_URL}/count`, options);
     const status = response.status;
     const data = await response.json();
     return{ data, status};
