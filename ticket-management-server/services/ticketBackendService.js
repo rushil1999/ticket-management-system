@@ -1,3 +1,4 @@
+//To only extract essential information from tickets
 export const parseTicketsListData = (ticketList) => {
     const parsedTicketsList = ticketList.map((ticket)=>{
         const {id, subject, tags} = ticket;
@@ -11,6 +12,7 @@ export const parseTicketsListData = (ticketList) => {
     return parsedTicketsList ;
 }
 
+//To get a specific subset of tickets for pagination
 export const getTicketsAsPerPage = (tickets, pageCount) => {
     const start = 25*(pageCount-1) ;
     const end = start + 25 ;

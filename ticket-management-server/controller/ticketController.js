@@ -8,8 +8,8 @@ import {
 import { parseTicketsListData , getTicketsAsPerPage} from '../services/ticketBackendService';
 import { sendCustomeError, sendCustomeSuccess } from './common';
 
+//To get tickets List (Pagination Implemented)
 export const getTickets = async (req, res) => {
-    console.log('Hererer');
     let url;
     const page = req.query.page;
     const options = {
@@ -51,6 +51,7 @@ export const getTickets = async (req, res) => {
     }
 }
 
+//To get details count of Total tickets on user account
 export const getTicketCount = async (req, res) => {
     const url = `${ZENDESK_TICKET_URL}/count`;
     const options = {
@@ -81,6 +82,7 @@ export const getTicketCount = async (req, res) => {
     }
 }
 
+//To get details of Ticket
 export const getTicketDetails = async (req, res) => {
     const id = req.params.id;
     const url = `${ZENDESK_TICKET_URL}/${id}`;

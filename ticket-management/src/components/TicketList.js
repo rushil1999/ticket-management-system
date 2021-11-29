@@ -120,11 +120,6 @@ const TicketList = () =>{
                             >
                                 {ticket.subject}
                             </Link>
-                            {/* <Button 
-                                onClick={() => redirectToTicketDetailsPage(ticket.id)}
-                            >
-                                {ticket.subject}
-                            </Button> */}
                         </TableCell>
                         <TableCell size="small" align="right">
                             <Tags
@@ -146,19 +141,14 @@ const TicketList = () =>{
                     color="primary" 
                 />
             </div>
-            
             </Card>
-            
           </>
         ): (
             <Box style={{ display: 'flex' , justifyContent:'center', position: 'relative'}}>
                 <CircularProgress />
             </Box>
         )}
-        
         </React.Fragment>
-        
     );
 }
-
 export default TicketList;

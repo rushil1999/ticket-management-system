@@ -9,14 +9,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Snackbar from '@mui/material/Snackbar';
 
-const TicketDetails = props =>{
+const TicketDetails = () =>{
     const location = useLocation();
     const [ticket, setTicket] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [open, setOpen] = useState(false);
-    const {id} = useParams();
     const [msg, setMsg] = useState('');
     const page = location.state?.page;
+
+    const {id} = useParams();
+
 
     useEffect(()=>{
         getTicketDetails(id);
@@ -29,16 +31,13 @@ const TicketDetails = props =>{
             const {ticket} = data.payload;
             setTicket(ticket);
             setIsLoading(false);
-
         }
         else{
             console.log('Error Occured');
             setMsg(data.errorMessage);
             setOpen(true);
-
         }
     }
-
     const {subject, description, tags, type} = ticket;
     return(
         <>
@@ -50,11 +49,9 @@ const TicketDetails = props =>{
             autoHideDuration={6000}
             onClose={()=>{setOpen(false)}}
             message={msg}
-
         />
         {!isLoading ? (
             <>
-            
             <Divider/>
             <div style={{padding:'15px'}}>
                 {type && (<><Typography variant="h5" gutterBottom component="div">
@@ -63,7 +60,6 @@ const TicketDetails = props =>{
                 <Divider/>
                 </>
                 )}
-                
                 <Typography style={{paddingTop:'15px', color: 'blueviolet'}} variant="h5" gutterBottom component="div">
                     Subject
                 </Typography>
@@ -90,14 +86,12 @@ const TicketDetails = props =>{
             <div style={{textAlign:'center'}}>
                 <Button variant="outlined">
                     <Link style={{color: 'black', textDecoration: 'none'}} 
-                    to={`/tickets`}
+                    to={`/`}
                     state={{page}}
                     >Back to List</Link>
                 </Button> 
             </div>
-            
             </>
-
         ): (
             <Box style={{ display: 'flex' , justifyContent:'center', position: 'relative'}}>
                 <CircularProgress />

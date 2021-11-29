@@ -11,13 +11,8 @@ const corsConfig = {
   credentials: true,
   origin: true,
 };
-app.use(cors(corsConfig));
-
-// app.listen(process.env.PORT, () => {
-//     console.log(`Server listening on port ${process.env.PORT}`);
-//   });
-
+app.use(cors(corsConfig)); //To enable CORS
   
-app.use('/ticket', ticketRouter);
+app.use('/ticket', ticketRouter); //Redirecting to any url having <server-name>/ticket
 
 export default app;
