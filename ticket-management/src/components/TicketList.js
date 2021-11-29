@@ -17,19 +17,21 @@ import Pagination from '@mui/material/Pagination';
 import { Button } from '@mui/material';
 import renderer from 'react-test-renderer';
 import Snackbar from '@mui/material/Snackbar';
+import {useLocation} from 'react-router-dom';
 
 
 const TicketList = () =>{
+    const location = useLocation();
     const [ticketList, setTicketList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(location.state?.page | 1);
     const [totalCount, setTotalCount] = useState(0);
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState('');
 
     useEffect(()=>{
-        getTicketCount(1);
-        getTicketList(1);
+        getTicketCount();
+        getTicketList(page);
     }, []);
 
     const getTicketCount = async () =>{ 
@@ -115,7 +117,8 @@ const TicketList = () =>{
                             <Link 
                                 type={'button'}
                                 style={{color:'blue', textDecoration:'none'}}
-                                to={{pathname: `/ticket/${ticket.id}`, state: {abc: 'rushil'}}}
+                                to={`/ticket/${ticket.id}`} 
+                                state={{page}}
                             >
                                 {ticket.subject}
                             </Link>

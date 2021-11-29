@@ -41,6 +41,5 @@ export const getTicketCountFromExternalApi = async () =>{
     const response = await fetch(`http://localhost:5000/ticket/count`, options);
     const status = response.status;
     const data = await response.json();
-    // console.log(data);
     return{ data, status};
 }

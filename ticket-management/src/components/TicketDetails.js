@@ -15,8 +15,8 @@ const TicketDetails = props =>{
     const [isLoading, setIsLoading] = useState(true);
     const [open, setOpen] = useState(false);
     const {id} = useParams();
-    const page = location.state?.page;
     const [msg, setMsg] = useState('');
+    const page = location.state?.page;
 
     useEffect(()=>{
         getTicketDetails(id);
@@ -25,11 +25,9 @@ const TicketDetails = props =>{
     const getTicketDetails = async () =>{
         setIsLoading(true);
         const {data, status} = await getTicketDetailsFromExternalApi(id);
-        console.log(data);
         if(status === 200){
             const {ticket} = data.payload;
             setTicket(ticket);
-            console.log(ticket);
             setIsLoading(false);
 
         }
@@ -41,9 +39,6 @@ const TicketDetails = props =>{
         }
     }
 
-    const redirectToTicketLists = () => {
-        // setViewType('list');    
-    }
     const {subject, description, tags, type} = ticket;
     return(
         <>
@@ -94,7 +89,10 @@ const TicketDetails = props =>{
             </div>
             <div style={{textAlign:'center'}}>
                 <Button variant="outlined">
-                    <Link style={{color: 'black', textDecoration: 'none'}} to={`/tickets`}>Back to List</Link>
+                    <Link style={{color: 'black', textDecoration: 'none'}} 
+                    to={`/tickets`}
+                    state={{page}}
+                    >Back to List</Link>
                 </Button> 
             </div>
             
