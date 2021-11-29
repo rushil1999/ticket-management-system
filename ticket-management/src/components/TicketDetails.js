@@ -1,20 +1,22 @@
 import { Divider, Button } from '@mui/material';
 import React, {useState, useEffect} from 'react'
-import { useParams} from 'react-router';
-import {Link} from 'react-router-dom';
+import {Link, useParams, useLocation} from 'react-router-dom';
 import {getTicketDetailsFromExternalApi} from '../services/ticketService';
 import Tags from './Tags';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import Snackbar from '@mui/material/Snackbar';
 
-
-const TicketDetails = () =>{
+const TicketDetails = props =>{
+    const location = useLocation();
     const [ticket, setTicket] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [open, setOpen] = useState(false);
     const {id} = useParams();
-    console.log(id);
+    const page = location.state?.page;
+    const [msg, setMsg] = useState('');
 
     useEffect(()=>{
         getTicketDetails(id);
@@ -23,19 +25,24 @@ const TicketDetails = () =>{
     const getTicketDetails = async () =>{
         setIsLoading(true);
         const {data, status} = await getTicketDetailsFromExternalApi(id);
+        console.log(data);
         if(status === 200){
             const {ticket} = data.payload;
             setTicket(ticket);
             console.log(ticket);
+            setIsLoading(false);
+
         }
         else{
             console.log('Error Occured');
+            setMsg(data.errorMessage);
+            setOpen(true);
+
         }
-        setIsLoading(false);
     }
 
     const redirectToTicketLists = () => {
-
+        // setViewType('list');    
     }
     const {subject, description, tags, type} = ticket;
     return(
@@ -43,6 +50,13 @@ const TicketDetails = () =>{
         <div style={{textAlign:'center'}}>
                 <h1>Ticket Details</h1>
         </div>
+        <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={()=>{setOpen(false)}}
+            message={msg}
+
+        />
         {!isLoading ? (
             <>
             
@@ -74,7 +88,7 @@ const TicketDetails = () =>{
                     Tags
                 </Typography>
                 <Typography variant="h7" gutterBottom component="div">
-                    <Tags tags={tags}/>
+                    <Tags viewType={'details'} tags={tags}/>
                 </Typography>
                 
             </div>

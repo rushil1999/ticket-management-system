@@ -6,11 +6,15 @@ import Typography from '@mui/material/Typography';
 
 const Tags = props => {
 
-    const {tags} = props;
+    const {tags, viewType} = props;
     return (
         <>
         {tags.length > 0 ? (
-            <Stack style={{justifyContent:'right'}}direction="row" spacing={1}>
+            <Stack 
+                style={{justifyContent: (viewType=='list') ? 'right' : 'left'}}
+                direction="row" 
+                spacing={1}
+            >
             {tags.map((tag) => (
                 <Chip label={tag} />
             )

@@ -6,7 +6,7 @@ describe('GET /ticket/tickets', ()=>{
     describe('checking correct response and payload details', () =>{
         let response;
         beforeAll(async ()=>{
-            response = await request(app).get('/ticket/tickets?page=initial&cursor=initial');
+            response = await request(app).get('/ticket/tickets?page=1');
         })
         test('response status should be 200',  ()=>{
             expect(response.status).toEqual(200);

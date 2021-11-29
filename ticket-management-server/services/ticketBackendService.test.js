@@ -248,11 +248,9 @@ describe('service function parseTicketsListData()', ()=>{
     });
     test('has required fields', ()=>{
         const keys = Object.keys(response[0]);
-        console.log(keys);
         const flag = keys.includes('tags') && 
             keys.includes('id') && 
-            keys.includes('subject')&& 
-            keys.includes('description');
+            keys.includes('subject')
         expect(flag).toBe(true);
     });
 })

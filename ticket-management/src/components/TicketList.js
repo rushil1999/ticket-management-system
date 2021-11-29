@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {getTicketListFromExternalApi } from '../services/ticketService';
+import {getTicketCountFromExternalApi, getTicketListFromExternalApi } from '../services/ticketService';
 import {Link} from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,16 +14,36 @@ import Card from '@mui/material/Card';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
+import { Button } from '@mui/material';
+import renderer from 'react-test-renderer';
+import Snackbar from '@mui/material/Snackbar';
+
 
 const TicketList = () =>{
     const [ticketList, setTicketList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
+    const [open, setOpen] = useState(false);
+    const [msg, setMsg] = useState('');
 
     useEffect(()=>{
+        getTicketCount(1);
         getTicketList(1);
     }, []);
+
+    const getTicketCount = async () =>{ 
+        setIsLoading(true);
+        const {data, status} = await getTicketCountFromExternalApi();
+        if(status === 200){
+            const {count} = data.payload;
+            setTotalCount(count);
+        }
+        else{
+            console.log('error Occured');
+        }
+        setIsLoading(false);
+    }
 
     const getTicketList = async page =>{
         setIsLoading(true);
@@ -31,10 +51,11 @@ const TicketList = () =>{
         if(status === 200){
             const {tickets, count} = data.payload;
             setTicketList(tickets);
-            setTotalCount(count);
         }
         else{
             console.log('Error Occured');
+            setMsg(data.errorMessage);
+            setOpen(true);
         }
         setIsLoading(false);
     }
@@ -43,9 +64,17 @@ const TicketList = () =>{
         setPage(newPage);
         getTicketList(newPage);
 
-    }
+    };
+
     return(
         <React.Fragment>
+        <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={()=>{setOpen(false)}}
+            message="An Error Occured"
+
+        />
         <div style={{textAlign:'center'}}>
             <h1>Tickets</h1>
         </div>
@@ -86,12 +115,19 @@ const TicketList = () =>{
                             <Link 
                                 type={'button'}
                                 style={{color:'blue', textDecoration:'none'}}
-                                to={`/ticket/${ticket.id}`}>
+                                to={{pathname: `/ticket/${ticket.id}`, state: {abc: 'rushil'}}}
+                            >
                                 {ticket.subject}
                             </Link>
+                            {/* <Button 
+                                onClick={() => redirectToTicketDetailsPage(ticket.id)}
+                            >
+                                {ticket.subject}
+                            </Button> */}
                         </TableCell>
                         <TableCell size="small" align="right">
                             <Tags
+                                viewType={'list'}
                                 tags={ticket.tags}
                             />
                         </TableCell>
