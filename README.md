@@ -16,10 +16,10 @@ This will install necesary modules and packages in your local as per package.jso
 1. Once you start the front-end service a tab will open up in browser, if it does not, manually navigate to localhost:3000
 
 2. You will find a list of tickets with maximum 25 records per page and pagination in the bottom
-![alt text](/zendesk-assessmenet-1.png)
+![alt text](/images/zendesk-assessmenet-1.png)
 
 3. On clicking the subject you will be redirected to ticket details page where in you will find description and other details of the ticket
-![alt text](/zendesk-assessment-3.png)
+![alt text](/images/zendesk-assessment-3.png)
 
 ## Running Tests
 1. Navigate to ticket-management-server, and run the command ```npm run test``` and you will see 8 tests pass
