@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Snackbar from '@mui/material/Snackbar';
+import Stack from '@mui/material/Stack';
+
 
 const TicketDetails = () =>{
     const location = useLocation();
@@ -16,9 +18,7 @@ const TicketDetails = () =>{
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState('');
     const page = location.state?.page;
-
     const {id} = useParams();
-
 
     useEffect(()=>{
         getTicketDetails(id);
@@ -38,7 +38,7 @@ const TicketDetails = () =>{
             setOpen(true);
         }
     }
-    const {subject, description, tags, type} = ticket;
+    const {subject, description, tags, type, status} = ticket;
     return(
         <>
         <div style={{textAlign:'center'}}>
@@ -54,12 +54,38 @@ const TicketDetails = () =>{
             <>
             <Divider/>
             <div style={{padding:'15px'}}>
-                {type && (<><Typography variant="h5" gutterBottom component="div">
-                    <Chip label={type} color="info" size="medium"/>
+                {type && (
+                <>
+                <Stack direction="row" spacing={1}>
+                <Typography style={{color: 'blueviolet'}} variant="h5" gutterBottom component="div">
+                    Type
                 </Typography>
+                <Typography variant="h7" gutterBottom component="div">
+                     <Chip label={type}  size="medium"/>
+                     {/* {type} */}
+                </Typography>
+                </Stack>
                 <Divider/>
                 </>
                 )}
+                {status && (
+                    <>
+                    <div style={{paddingTop:'15px'}}>
+                    <Stack direction="row" spacing={1}>
+                    
+                    <Typography style={{color: 'blueviolet'}} variant="h5" gutterBottom component="div">
+                        Status
+                    </Typography>
+                    <Typography variant="h7" gutterBottom component="div">
+                        <Chip label={status}  size="medium"/>
+                        {/* {status} */}
+                    </Typography>
+                    </Stack>
+                    </div>
+                    <Divider/>
+                    </>
+                )}
+                
                 <Typography style={{paddingTop:'15px', color: 'blueviolet'}} variant="h5" gutterBottom component="div">
                     Subject
                 </Typography>
