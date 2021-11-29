@@ -1,4 +1,4 @@
-export const getTicketListFromExternalApi = async (type, cursor) =>{
+export const getTicketListFromExternalApi = async (page) =>{
 
     const options = {
         method: 'get',
@@ -7,7 +7,7 @@ export const getTicketListFromExternalApi = async (type, cursor) =>{
         },
     }
 
-    const response = await fetch(`http://localhost:5000/ticket/tickets?page=${type}&cursor=${cursor}`, options);
+    const response = await fetch(`http://localhost:5000/ticket/tickets?page=${page}`, options);
     const status = response.status;
     const data = await response.json();
     // console.log(data);

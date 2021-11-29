@@ -10,3 +10,9 @@ export const parseTicketsListData = (ticketList) => {
     })
     return parsedTicketsList ;
 }
+
+export const getTicketsAsPerPage = (tickets, pageCount) => {
+    const start = 25*(pageCount-1) ;
+    const end = start + 25 ;
+    return tickets.slice(start, end); //0 indexing
+}

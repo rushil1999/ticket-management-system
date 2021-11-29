@@ -8,54 +8,30 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Divider from '@mui/material/Divider';
 import Tags from './Tags';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';  
-import { Button } from '@mui/material';
 import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-
-
+import Pagination from '@mui/material/Pagination';
 
 const TicketList = () =>{
     const [ticketList, setTicketList] = useState([]);
-    const [ticketMetaData, setTicketMetaData] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const [counter, setCounter] = useState(0);
+    const [page, setPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
 
     useEffect(()=>{
-        getTicketList('initial');
+        getTicketList(1);
     }, []);
 
-    const getTicketList = async type =>{
+    const getTicketList = async page =>{
         setIsLoading(true);
-        let cursor;
-        switch(type){
-            case 'after':{
-                cursor = ticketMetaData.meta.after_cursor;
-                setCounter(counter+1);
-                break;
-            }
-            case 'previous': {
-                cursor = ticketMetaData.meta.before_cursor;
-                setCounter(counter-1);
-                break;
-            }
-            case 'initial':{
-                cursor = 'initial';
-                setCounter(0);
-                break;
-            }
-        }
-        const {data, status } = await getTicketListFromExternalApi(type, cursor);
+        const {data, status } = await getTicketListFromExternalApi(page);
         if(status === 200){
-            const {tickets, meta, links} = data.payload;
+            const {tickets, count} = data.payload;
             setTicketList(tickets);
-            setTicketMetaData({meta, links});
-            // console.log(tickets.length);
+            setTotalCount(count);
         }
         else{
             console.log('Error Occured');
@@ -63,25 +39,13 @@ const TicketList = () =>{
         setIsLoading(false);
     }
 
+    const handlePageChange = (e, newPage) => {
+        setPage(newPage);
+        getTicketList(newPage);
+
+    }
     return(
         <React.Fragment>
-        {/* {!isLoading && (
-            <>
-            <ul>
-                {ticketList.map((row)=>{
-                    return(
-                        <li key={row.id}>
-                            <Link to={`/ticket/${row.id}`}>{row.subject}</Link>
-                            
-                        </li>
-                    )
-                })}
-            </ul>
-            <button onClick={()=>{getTicketList('after')}} disabled={!ticketMetaData.meta.has_more}>Next</button>
-            <br/>
-            <button onClick={()=>{getTicketList('previous')}} disabled={!(counter>0)}>Last</button>
-            </>
-        )} */}
         <div style={{textAlign:'center'}}>
             <h1>Tickets</h1>
         </div>
@@ -137,24 +101,17 @@ const TicketList = () =>{
                 </Table>
                 
             </TableContainer>
+            <div style={{ display: 'flex' , justifyContent:'center', position: 'relative'}}>
+                <Pagination 
+                    count={Math.ceil(totalCount/25)}
+                    page={page}
+                    onChange={handlePageChange} 
+                    color="primary" 
+                />
+            </div>
+            
             </Card>
-            <footer >
-            <Stack style={{padding: '20px'}}direction="row" spacing={145}>
-                <Button
-                    variant="contained"
-                    onClick={()=>{getTicketList('previous')}} disabled={!(counter>0)}
-                >
-                    Last
-                </Button>
-                <Button 
-                    variant="contained"
-                    onClick={()=>{getTicketList('after')}} disabled={!ticketMetaData.meta.has_more}
-                >
-                    Next
-                </Button>
-                
-            </Stack>
-            </footer>
+            
           </>
         ): (
             <Box style={{ display: 'flex' , justifyContent:'center', position: 'relative'}}>
