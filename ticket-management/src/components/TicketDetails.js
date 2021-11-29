@@ -64,7 +64,7 @@ const TicketDetails = props =>{
                 </>
                 )}
                 
-                <Typography style={{paddingTop:'15px'}} variant="h5" gutterBottom component="div">
+                <Typography style={{paddingTop:'15px', color: 'blueviolet'}} variant="h5" gutterBottom component="div">
                     Subject
                 </Typography>
                                 
@@ -72,14 +72,14 @@ const TicketDetails = props =>{
                     {subject}
                 </Typography>
                 <Divider/>
-                <Typography style={{paddingTop:'15px'}} variant="h5" gutterBottom component="div">
+                <Typography style={{paddingTop:'15px', color: 'blueviolet'}} variant="h5" gutterBottom component="div">
                     Description
                 </Typography>
                 <Typography variant="h7" gutterBottom component="div">
                     {description}
                 </Typography>
                 <Divider/>
-                <Typography style={{paddingTop:'15px'}} variant="h5" gutterBottom component="div">
+                <Typography style={{paddingTop:'15px', color: 'blueviolet'}} variant="h5" gutterBottom component="div">
                     Tags
                 </Typography>
                 <Typography variant="h7" gutterBottom component="div">

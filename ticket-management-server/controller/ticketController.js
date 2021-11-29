@@ -9,6 +9,7 @@ import { parseTicketsListData , getTicketsAsPerPage} from '../services/ticketBac
 import { sendCustomeError, sendCustomeSuccess } from './common';
 
 export const getTickets = async (req, res) => {
+    console.log('Hererer');
     let url;
     const page = req.query.page;
     const options = {

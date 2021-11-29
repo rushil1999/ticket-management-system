@@ -14,8 +14,6 @@ import Card from '@mui/material/Card';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
-import { Button } from '@mui/material';
-import renderer from 'react-test-renderer';
 import Snackbar from '@mui/material/Snackbar';
 import {useLocation} from 'react-router-dom';
 
@@ -74,7 +72,7 @@ const TicketList = () =>{
             open={open}
             autoHideDuration={6000}
             onClose={()=>{setOpen(false)}}
-            message="An Error Occured"
+            message={msg}
 
         />
         <div style={{textAlign:'center'}}>
