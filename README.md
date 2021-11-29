@@ -21,6 +21,6 @@ This will install necesary modules and packages in your local as per package.jso
 3. On clicking the subject you will be redirected to ticket details page where in you will find description and other details of the ticket
 ![alt text](/zendesk-assessment-3.png)
 
-##Running Tests
+## Running Tests
 1. Navigate to ticket-management-server, and run the command ```npm run test``` and you will see 8 tests pass
 2. Do the same for ticket-management-server
