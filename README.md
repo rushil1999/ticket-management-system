@@ -1,4 +1,4 @@
-# Ticket-management-system (Zendesk-coding-challenge)
+# Ticket-management-system 
 
 ## Installation Steps
 1. Firstly, install node and npm in your local machine, for that refer the [link](https://nodejs.org/en/download/package-manager/)
